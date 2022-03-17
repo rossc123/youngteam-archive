@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Young Team Archive</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+      <link rel="shortcut icon" type="image/jpg" href="images/berg-con.jpeg"/>
+  <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+
+  <body style="background-color: #ece9d8">
+    <header>
+      <h2 style="text-align: center">The Young Team Website Archive</h2>
+      <h3 style="text-align: center">
+        websites may contain explicit content<br />
+        please browse at your own risk
+      </h3>
+      <div class="buttons">
+        <button
+          class="btn btn-success"
+          onclick=" window.open('https://www.instagram.com/youngteamarchive/','_blank')"
+        >
+          Instragram
+        </button>
+         <button
+          class="btn btn-success"
+          onclick=" window.open('https://twitter.com/FleetoArchive','_blank')"
+        >
+          Twitter
+        </button>
+      </div>
+    </header>
+
+    <div class="container"></div>
+
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"
+    ></script>
+
+    <script type="text/javascript">
+      var public_spreadsheet_url =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTVJ8QJOsOHajLfh0nra7FEV79a1VUW1gMRWkGdhgYXBGLJtR2UsODUWRo6i49mfk2Tu1UlNNjNdJ-g/pub?output=csv";
+
+      function init() {
+        Papa.parse(public_spreadsheet_url, {
+          download: true,
+          header: true,
+          complete: showInfo,
+        });
+      }
+
+      function showInfo(results) {
+        var data = results.data;
+        for (var i = 0; i < data.length; i++) {
+          $(".container").append(
+            '<div class="window">' +
+              '<div class="title-bar">' +
+              '<div class="title-bar-text">' +
+              data[i].Name +
+              "</div>" +
+              "</div>" +
+              '<div class="window-body">' +
+              '<a href="' +
+              data[i].Link +
+              '"target="_blank">' +
+              '<img src="' +
+              data[i].Image +
+              '">' +
+              "</a>" +
+              "</div>" +
+              "</div>"
+          );
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
